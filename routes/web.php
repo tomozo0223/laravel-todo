@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/task', [TaskController::class, 'index'])->name('task.index');
+Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
