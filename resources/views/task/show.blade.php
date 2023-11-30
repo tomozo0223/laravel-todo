@@ -9,5 +9,10 @@
             <p>{{ $task->body }}</p>
             <p class="flex justify-end">{{ $task->user->name }}</p>
         </div>
+        <div class="m-4 flex justify-end">
+            <x-primary-button class="bg-green-700">
+                <a href="{{ route('task.edit', $task) }}">更新</a>
+            </x-primary-button>
+        </div>
     </div>
 </x-app-layout>
