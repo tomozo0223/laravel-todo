@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot:header>
-        タスク一覧ページ
+        タスク詳細ページ
     </x-slot:header>
     <div class="p-12 m-4 bg-white">
+        @if (session('message'))
+            {{ session('message') }}
+        @endif
         <div class="p-4 bg-green-50 m-4">
             <h2 class="font-semibold">{{ $task->title }}</h2>
             <hr>
