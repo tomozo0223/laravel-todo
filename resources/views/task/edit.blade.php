@@ -3,8 +3,9 @@
         タスク登録ページ
     </x-slot:header>
     <div class="p-12 m-4 bg-white">
-        <form action="{{ route('task.store') }}" method="POST">
+        <form action="{{ route('task.update', $task) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="m-4">
                 <label for="title">タイトル</label>
                 <input type="text" name="title" id="title" class="w-full" value="{{ old('title', $task->title) }}">
