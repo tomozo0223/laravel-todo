@@ -6,6 +6,9 @@
         @if (session('message'))
             {{ session('message') }}
         @endif
+        @if (session('delete_message'))
+            {{ session('delete_message') }}
+        @endif
         @foreach ($tasks as $task)
             <div class="p-4 bg-green-50 m-4">
                 <a href="{{ route('task.show', $task) }}">
