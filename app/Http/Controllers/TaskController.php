@@ -75,6 +75,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return to_route('task.index')->with('delete_message', '削除しました');
     }
 }

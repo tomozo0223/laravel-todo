@@ -16,6 +16,13 @@
             <x-primary-button class="bg-green-700">
                 <a href="{{ route('task.edit', $task) }}">更新</a>
             </x-primary-button>
+            <form action="{{ route('task.destroy', $task) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <x-danger-button class="ml-2">
+                    削除
+                </x-danger-button>
+            </form>
         </div>
     </div>
 </x-app-layout>
