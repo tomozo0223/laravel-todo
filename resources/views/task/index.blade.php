@@ -6,18 +6,19 @@
         @if (session('message'))
             {{ session('message') }}
         @endif
-        @if (session('delete_message'))
-            {{ session('delete_message') }}
-        @endif
         @foreach ($tasks as $task)
             <div class="p-4 bg-green-50 m-4">
-                <a href="{{ route('task.show', $task) }}">
-                    <h2 class="font-semibold">{{ $task->title }}</h2>
-                </a>
+                <div class="flex">
+                    <a href="{{ route('task.show', $task) }}">
+                        <h2 class="font-semibold">{{ $task->title }}</h2>
+                    </a>
+                </div>
                 <hr>
                 <p>{{ $task->body }}</p>
                 <p class="flex justify-end">{{ $task->user->name }}</p>
+                <p class="flex justify-end">{{ $task->created_at }}</p>
             </div>
         @endforeach
     </div>
+    {{ $tasks->links() }}
 </x-app-layout>
