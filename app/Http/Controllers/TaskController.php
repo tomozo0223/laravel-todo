@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user')->get();
+        $tasks = Task::with('user')->orderBy('created_at', 'desc')->paginate(5);
 
         return view('task.index', compact('tasks'));
     }
@@ -77,6 +77,6 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return to_route('task.index')->with('delete_message', '削除しました');
+        return to_route('task.index')->with('message', '削除しました');
     }
 }
