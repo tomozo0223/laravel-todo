@@ -19,14 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/task', [TaskController::class, 'index'])->name('task.index');
-Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
-Route::post('/task', [TaskController::class, 'store'])->name('task.store');
-Route::get('/task/{task}', [TaskController::class, 'show'])->name('task.show');
-Route::get('/task/{task}/edit', [TaskController::class, 'edit'])->name('task.edit');
-Route::put('/task/{task}', [TaskController::class, 'update'])->name('task.update');
-Route::delete('/task/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -35,6 +27,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(TaskController::class)
+        ->prefix('task')
+        ->name('task.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{task}', 'show')->name('show');
+            Route::get('/{task}/edit', 'edit')->name('edit');
+            Route::put('/{task}', 'update')->name('update');
+            Route::delete('/{task}', 'destroy')->name('destroy');
+        });
 });
 
 require __DIR__ . '/auth.php';
