@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -33,6 +33,8 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
+        Gate::authorize('store-task', $request);
+
         Task::create([
             'title' => $request->title,
             'body' => $request->body,
@@ -63,6 +65,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        Gate::authorize('update-task', $task);
+
         $task->title = $request->title;
         $task->body = $request->body;
         $task->save();
@@ -75,6 +79,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        Gate::authorize('delete-task', $task);
+
         $task->delete();
 
         return to_route('task.index')->with('message', '削除しました');
