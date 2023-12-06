@@ -13,16 +13,20 @@
             <p class="flex justify-end">{{ $task->user->name }}</p>
         </div>
         <div class="m-4 flex justify-end">
-            <x-primary-button class="bg-green-700">
-                <a href="{{ route('task.edit', $task) }}">更新</a>
-            </x-primary-button>
-            <form action="{{ route('task.destroy', $task) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <x-danger-button class="ml-2">
-                    削除
-                </x-danger-button>
-            </form>
+            @can('update-task', $task)
+                <x-primary-button class="bg-green-700">
+                    <a href="{{ route('task.edit', $task) }}">更新</a>
+                </x-primary-button>
+            @endcan
+            @can('delete-task', $task)
+                <form action="{{ route('task.destroy', $task) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-danger-button class="ml-2">
+                        削除
+                    </x-danger-button>
+                </form>
+            @endcan
         </div>
     </div>
 </x-app-layout>
