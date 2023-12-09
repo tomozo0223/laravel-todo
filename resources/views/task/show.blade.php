@@ -13,11 +13,6 @@
             <p class="flex justify-end">{{ $task->user->name }}</p>
         </div>
         <div class="m-4 flex justify-end">
-            <form action="{{ route('csvDownload', $task) }}" method="GET">
-                <x-primary-button class="bg-black-400">
-                    ダウンロード
-                </x-primary-button>
-            </form>
             @can('update-task', $task)
                 <x-primary-button class="bg-green-700 ml-2">
                     <a href="{{ route('task.edit', $task) }}">更新</a>
