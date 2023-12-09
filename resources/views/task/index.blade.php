@@ -6,6 +6,13 @@
         @if (session('message'))
             {{ session('message') }}
         @endif
+        <div class="flex justify-end mr-6">
+            <form action="{{ route('csvDownload') }}" method="GET">
+                <x-primary-button class="bg-black-400">
+                    ダウンロード
+                </x-primary-button>
+            </form>
+        </div>
         @foreach ($tasks as $task)
             <div class="p-4 bg-green-50 m-4">
                 <div class="flex">
