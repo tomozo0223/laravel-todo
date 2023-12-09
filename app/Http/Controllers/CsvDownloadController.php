@@ -22,17 +22,15 @@ class CsvDownloadController extends Controller
 
 
         $callback = function () use ($tasks) {
-            $handle = fopen('php://output', 'a');
+            $handle = fopen('php://output', 'w');
             foreach ($tasks as $task) {
-                $taskData[] = [
+                $taskData = [
                     $task->title,
                     $task->body,
                     $task->user->name,
                     $task->created_at
                 ];
-            }
-            foreach ($taskData as $data) {
-                fputcsv($handle, $data);
+                fputcsv($handle, $taskData);
             }
             fclose($handle);
         };
