@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/{task}', 'update')->name('update');
             Route::delete('/{task}', 'destroy')->name('destroy');
         });
-    Route::get('/csv-download/{task}', [CsvDownloadController::class, 'csvDownload'])->name('csvDownload');
+    Route::get('/csv-download', [CsvDownloadController::class, 'csvDownload'])->name('csvDownload');
 });
 
 require __DIR__ . '/auth.php';
