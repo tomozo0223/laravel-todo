@@ -12,9 +12,7 @@ class CsvDownloadController extends Controller
         // チェックボックスの値が存在するとき
         if ($request->selected_tasks) {
             $taskIds = $request->input('selected_tasks');
-            foreach ($taskIds as $taskId) {
-                $tasks[] = Task::findOrFail($taskId);
-            }
+            $tasks = Task::whereIn('id', $taskIds)->get();
         } else {
             $tasks = Task::all();
         }
