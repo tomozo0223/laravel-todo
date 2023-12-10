@@ -14,7 +14,7 @@
         </div>
         <div class="m-4 flex justify-end">
             @can('update-task', $task)
-                <x-primary-button class="bg-green-700">
+                <x-primary-button class="bg-green-700 ml-2">
                     <a href="{{ route('task.edit', $task) }}">更新</a>
                 </x-primary-button>
             @endcan
