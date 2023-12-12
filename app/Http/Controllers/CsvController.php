@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CsvController extends Controller
 {
-    public function csvDownload(Request $request)
+    public function downloadCsv(Request $request)
     {
         // チェックボックスの値が存在するとき
         if ($request->selected_tasks) {
@@ -43,7 +43,7 @@ class CsvController extends Controller
         return response()->streamDownload($callback, $fileName, $headers);
     }
 
-    public function csvUpload(CsvUploadRequest $request)
+    public function uploadCsv(CsvUploadRequest $request)
     {
         if ($request->hasFile('csv_file')) {
             $csvFile = $request->file('csv_file');
