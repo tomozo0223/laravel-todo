@@ -46,24 +46,31 @@ class CsvController extends Controller
 
     public function uploadCsv(CsvUploadRequest $request)
     {
-        if ($request->hasFile('csv_file')) {
-            $csvFile = $request->file('csv_file');
-            if (($handle = fopen($csvFile->getPathname(), "r")) !== false) {
-                while (($csvData = fgetcsv($handle)) !== false) {
-                    $tasks[] = [
-                        'title' => $csvData[0],
-                        'body' => $csvData[1],
-                        'user_id' => Auth::id(),
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
-                    ];
-                }
-                Task::insert($tasks);
-                fclose($handle);
-                return to_route('task.index')->with('message', 'csvファイルから登録しました。');
-            };
+        $handle = $this->openUploadFile($request);
+        if ($handle) {
+            while (($csvData = fgetcsv($handle)) !== false) {
+                $tasks[] = [
+                    'title' => $csvData[0],
+                    'body' => $csvData[1],
+                    'user_id' => Auth::id(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+            }
+            Task::insert($tasks);
+            fclose($handle);
+            return to_route('task.index')->with('message', 'csvファイルから登録しました。');
         } else {
-            to_route('task.create')->with('message', 'ファイルがありませんでした。');
+            return to_route('task.create')->with('message', 'ファイルがありませんでした。');
         }
+    }
+
+    private function openUploadFile($request)
+    {
+        if (!$request->hasFile('csv_file')) {
+            return null;
+        }
+        $csvFile = $request->file('csv_file');
+        return fopen($csvFile->getPathname(), "r");
     }
 }
