@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
             Route::put('/{task}', 'update')->name('update');
             Route::delete('/{task}', 'destroy')->name('destroy');
         });
-    Route::get('/csv-download', [CsvController::class, 'DownloadCsv'])->name('csvDownload');
-    Route::post('/csv-download', [CsvController::class, 'uploadCsv'])->name('csvUpload');
+    Route::get('/csv-download', [CsvController::class, 'downloadCsv'])->name('csvDownload');
+    Route::post('/csv-upload', [CsvController::class, 'uploadCsv'])->name('csvUpload');
 });
 
 require __DIR__ . '/auth.php';
