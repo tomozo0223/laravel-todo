@@ -60,8 +60,6 @@ class CsvController extends Controller
             Task::insert($tasks);
             fclose($handle);
             return to_route('task.index')->with('message', 'csvファイルから登録しました。');
-        } else {
-            return to_route('task.create')->with('message', 'ファイルがありませんでした。');
         }
     }
 
