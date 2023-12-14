@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\CsvDownloadController;
+use App\Http\Controllers\CsvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +40,8 @@ Route::middleware('auth')->group(function () {
             Route::put('/{task}', 'update')->name('update');
             Route::delete('/{task}', 'destroy')->name('destroy');
         });
-    Route::get('/csv-download', [CsvDownloadController::class, 'csvDownload'])->name('csvDownload');
+    Route::get('/csv-download', [CsvController::class, 'downloadCsv'])->name('csvDownload');
+    Route::post('/csv-upload', [CsvController::class, 'uploadCsv'])->name('csvUpload');
 });
 
 require __DIR__ . '/auth.php';
