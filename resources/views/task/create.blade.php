@@ -5,13 +5,16 @@
     <div class="p-12 m-4 bg-white">
         <form action="{{ route('csvUpload') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @if (session('message'))
+                {{ session('message') }}
+            @endif
+            @error('csv_file')
+                {{ $message }}
+            @enderror
             <input type="file" name="csv_file" class="block mb-2">
             <x-primary-button>
                 インポート
             </x-primary-button>
-            @error('csv_file')
-                {{ $message }}
-            @enderror
         </form>
         <form action="{{ route('task.store') }}" method="POST">
             @csrf
