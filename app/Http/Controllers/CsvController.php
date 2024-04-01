@@ -46,7 +46,12 @@ class CsvController extends Controller
 
     public function uploadCsv(CsvUploadRequest $request)
     {
-        $handle = $this->openUploadFile($request);
+        if ($request->file('csv_file')->getClientOriginalExtension() === 'csv') {
+            $handle = $this->openUploadFile($request);
+        } else {
+            return to_route('task.create')->with('message', 'csvファイルを選択してください。');
+        }
+
         if ($handle) {
             while (($csvData = fgetcsv($handle)) !== false) {
                 $tasks[] = [
@@ -69,6 +74,9 @@ class CsvController extends Controller
             return null;
         }
         $csvFile = $request->file('csv_file');
+        // if ($csvFile->getClientOriginalExtension() !== 'csv') {
+        //     return to_route('task.index')->with('message', 'csvファイルを選択してください。');
+        // }
         return fopen($csvFile->getPathname(), "r");
     }
 }
