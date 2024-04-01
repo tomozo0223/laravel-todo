@@ -6,11 +6,6 @@
         @if (session('message'))
             {{ session('message') }}
         @endif
-        <div class="flex justify-end mr-6">
-            {{-- <x-primary-button class="bg-black-400">
-                ダウンロード
-            </x-primary-button> --}}
-        </div>
         <form action="{{ route('csvDownload') }}" method="GET">
             @foreach ($tasks as $task)
                 <div class="p-4 bg-green-50 m-4">
@@ -26,9 +21,11 @@
                     <p class="flex justify-end">{{ $task->created_at }}</p>
                 </div>
             @endforeach
-            <x-primary-button class="bg-black-400">
-                ダウンロード
-            </x-primary-button>
+            @if (!$tasks->isEmpty())
+                <x-primary-button class="bg-black-400">
+                    ダウンロード
+                </x-primary-button>
+            @endif
         </form>
     </div>
     {{ $tasks->links() }}
