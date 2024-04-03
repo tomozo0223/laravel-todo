@@ -25,4 +25,11 @@ class CsvUploadRequest extends FormRequest
             'csv_file' => 'required|mimetypes:text/plain,text/csv'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'csv_file.mimetypes' => 'csvファイルを選択してください。',
+        ];
+    }
 }
